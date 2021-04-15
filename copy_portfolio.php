@@ -1,4 +1,15 @@
 <?php 
+$name = $_POST['name'];
+$work = $_POST['work'];
+$address = $_POST['address'];
+$email = $_POST['email'];
+$work1_from = $_POST['work1_from'];
+$work1_to = $_POST['work1_to'];
+$work2_date = $_POST['work2_date'];
+$experience_1 = $_POST['experience_1'];
+$experience_2 = $_POST['experience_2'];
+$position_1 = $_POST['position_1'];
+$position_2 = $_POST['position_2'];
 
 
 

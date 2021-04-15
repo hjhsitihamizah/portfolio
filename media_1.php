@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 ?>
@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@1,00&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <style>
         html,
         body,
@@ -25,6 +27,14 @@
             font-family: 'Source Sans Pro', sans-serif;
         }
     </style>
+    <script>
+        $(document).ready(function(){
+            $("#submit").click(function(){
+                // alert("The submit button is clicked");
+                $("#userForm").serialize();
+            })
+        })
+    </script>
 </head>
 
 <body class="w3-light-grey">
@@ -32,7 +42,7 @@
     <div class="w3-content w3-margin-top" style="max-width: 1400px;">
         <!-- the grid -->
         <div class="w3-row-padding">
-        <form action="copy_portfolio.php" method="POST">
+        <form id="userForm" action="copy_portfolio.php" method="POST">
             <!-- left column -->
             <div class="w3-third">
                 
@@ -59,13 +69,13 @@
                 <div class="w3-container w3-card w3-white w3-margin-bottom">
                 <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
                     <div class="w3-container">
-                        <h6 class="w3-opacity"><input type="text" name="experience_1" placeholder="Latest Work Position"></h6>
+                        <h6 class="w3-opacity"><input type="text" name="position_1" placeholder="Latest Work Position"></h6>
                         <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><input type="text" name="work1_from" placeholder="From"> - <input type="text" name="work1_to" placeholder="To"></h6>
                         <p style="text-align: justify"><textarea name="experience_1" id="" cols="55" rows="5" placeholder="Work Description"></textarea></p>
                         <hr>
                     </div>
                     <div class="w3-container">
-                        <h6 class="w3-opacity"><input type="text" name="experience_1" placeholder="Second Latest Work Position"></h6>
+                        <h6 class="w3-opacity"><input type="text" name="position_2" placeholder="Second Latest Work Position"></h6>
                         <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><input type="text" name="work2_date" placeholder="dd/mm/yyyy"></h6>
                         <p style="text-align: justify"><textarea name="experience_2" id="" cols="55" rows="5" placeholder="Work Description"></textarea></p>
                         <br>
@@ -76,7 +86,8 @@
                 <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-plus-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Create Your Own Portfolio</h2>
                     <div class="w3-container">
                         <!-- <h5 class="opacity"><b>kkkk</b></h5> -->
-                        <a href="media_1.php"><h6 class="w3-text-teal"><i class="fa fa-link fa-fw w3-margin-right"></i>Create portfolio</h6></a>                     
+                        
+                        <h6 class="w3-text-teal"><i class="fa fa-link fa-fw w3-margin-right"></i><input name="submit" id="submit" class="w3-text-teal" type="submit" value="Create Portfolio"></h6>
                         <br>
                     </div>
                 </div>
