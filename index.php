@@ -1,4 +1,5 @@
 <?php
+
 require 'db_connection.php';
 
 $emailRow = array();

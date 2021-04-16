@@ -85,7 +85,7 @@ function secure($data){
                 </a>
                 <!-- <p>Resize the browser window to see the responsive effect.</p> -->
             </div>
-            <form id="userForm" action="<?php 'copy_portfolio.php';?>" method="POST" >
+            <form id="userForm" action="insert_data.php" method="POST" >
 
                 <!-- left column -->
                 <div class="w3-third">

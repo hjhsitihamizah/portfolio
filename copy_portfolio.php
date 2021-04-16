@@ -1,42 +1,27 @@
-<?php
+<?php 
+session_start();
 require "db_connection.php";
 
-$name = $_POST['name'];
-$work = $_POST['work'];
-$address = $_POST['address'];
-$email = $_POST['email'];
-$work1_from = $_POST['work1_from'];
-$work1_to = $_POST['work1_to'];
-$work2_date = $_POST['work2_date'];
-$experience_1 = $_POST['experience_1'];
-$experience_2 = $_POST['experience_2'];
-$position_1 = $_POST['position_1'];
-$position_2 = $_POST['position_2'];
+$email = $_SESSION["email"];
 
 $sql_e = "SELECT * FROM user_information WHERE email='$email'";
 $result = $con->query($sql_e);
-if(mysqli_num_rows($result)>0){
-    $msg = "Email has already registered, try to use another email instead ";
+if($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $name = $row['username'];
+        $work = $row['work'];
+        $address = $row['h_address'];
+        // $email = $row['email'];
+        $work1_from = $row['date_from'];
+        $work1_to = $row['date_to'];
+        $work2_date = $row['work2_date'];
+        $experience_1 = $row['exp1'];
+        $experience_2 = $row['exp2'];
+        $position_1 = $row['position1'];
+        $position_2 = $row['position2'];
+    }
 }
-else{
-    $sql2 = "INSERT INTO user_information (username, work, h_address, email, date_from, date_to, work2_date, exp1, exp2, position1, position2) 
-        VALUES ('$name','$work','$address','$email','$work1_from','$work1_to','$work2_date','$experience_1','$experience_2','$position_1','$position_2')";
-    
-
-        if($con->query($sql2))
-        {
-            $msg =  "new record created successfully";
-            exit;
-        
-        }
-        else
-        {
-            $msg = "error: " . $sql2 . "<br>" . $con->error . "<br";
-        }
-        $con->close();
-}
-
-
+// session_destroy();
 ?>
 <html lang="en">
 
@@ -127,7 +112,7 @@ else{
                 <div class="w3-container w3-card w3-white">
                     <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-plus-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Database</h2>
                     <div class="w3-container">
-                        <h5 class="opacity"><b><?php echo $msg; ?></b></h5>                        
+                        
                         <br>
                     </div>
                 </div>
