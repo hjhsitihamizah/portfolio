@@ -61,9 +61,6 @@ function secure($data){
         margin-right: 0em;
        }
        
-       .class-form{
-            width:50%;
-        }
     </style>
     <script>
         $(document).ready(function() {
@@ -88,7 +85,7 @@ function secure($data){
                 </a>
                 <!-- <p>Resize the browser window to see the responsive effect.</p> -->
             </div>
-            <form id="userForm" action="<?php echo htmlspecialchars('copy_portfolio.php');?>" method="POST" >
+            <form id="userForm" action="<?php 'copy_portfolio.php';?>" method="POST" >
 
                 <!-- left column -->
                 <div class="w3-third">
@@ -96,7 +93,7 @@ function secure($data){
                         <div class="w3-display-container">
                             <img src="res/polar.jpg" alt="Avatar" style="width: 100%">
                             <div class="w3-display-bottomleft w3-container w3-text-black">
-                                <h2><input type="text" class="" name="name" placeholder="Name"></h2>
+                                <h2><input type="text" class="w3-twothird" name="name" placeholder="Name"></h2>
                             </div>
                         </div>
                         <div class="w3-container">

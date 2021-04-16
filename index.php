@@ -2,11 +2,11 @@
 require 'db_connection.php';
 
 $emailRow = array();
-$sql_e = "SELECT * FROM user_information ";
+$sql_e = "SELECT * FROM user_information";
 $result = $con->query($sql_e);
-if (mysqli_num_rows($result) > 0) {
+if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $emailRow = $row;
+        $emailRow[] = $row;
     }
 }
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -31,6 +31,8 @@ function secure($data){
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link rel='icon' href='res/flower.jpg' type='image/x-icon'>
     <style>
         html,
@@ -63,9 +65,6 @@ function secure($data){
             text-decoration: none;
         }
 
-        .class-form{
-            width:100%;
-        }
     </style>
     <title>Portfolio</title>
 </head>
@@ -77,10 +76,6 @@ function secure($data){
         <!-- the grid -->
         <div class="w3-row-padding">
             <div class="header">
-                <?php var_dump($emailRow);
-                echo "<br>hi<br>";
-                echo json_encode($emailRow["email"]);
-                ?>
                 <!-- <h1 class="w3-text-grey w3-padding-16">Home</h1> -->
                 <a href="index.php" class="a-no-underline">
                     <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-home fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Home</h2>
@@ -190,31 +185,27 @@ function secure($data){
                         <a href="media_1.php">
                             <h6 class="w3-text-teal"><i class="fa fa-link fa-fw w3-margin-right"></i>Create portfolio</h6>
                         </a>
-                        <form action="">
-                            <select name="selectUser" onchange="email_select(this.value)" id="selectUser">
+                        <form action="saved_portfolio.php" method="post">
+                            <select name="selectUser" onclick="selectFnc(this.value)" id="selectUser">
                                 <?php
                                 echo "<option value='' selected>Select the user</option>";
                                 $selected = json_encode($emailRow['email']);
                                 
                                 foreach ($emailRow as $tre) {
-                                    $user = $tre['username'];
-                                    $email = $tre['email'];
+                                    $user = $tre['username'];                                    
                                     $id = $tre["id"];
-                                    echo "<option value='$id'>$tre</option>";
+                                    
+                                    echo "<option value='$id'>$user</option>";
                                     // echo "<option value='$email'>$email</option>";
                                 }
 
                                 ?>
 
                             </select>
-                            <!-- <button class="btn" type="submit">Submit</button> -->
-                            <?php 
-                            foreach($emailRow as $tre){
-                                // echo $tre[2] . "<br>";
-                            }
-                            ?>
+                            <button class="btn" type="submit">Submit</button>
+                            
                         </form>
-                        <h6 class="w3-text-teal" id="txt">Text Appear Here</h6>
+                        <div id="txt" class="w3-text-teal" >Text Appear Here</div>
                         <br>
                     </div>
                 </div>
@@ -236,11 +227,10 @@ function secure($data){
     </div>
     <script>
         //select drone model
-        function drone_select(str) {
-            var droneModel = document.getElementById("droneSelect").innerHTML;
+        function selectFnc(str) {
+            
             if (str == "") {
                 document.getElementById("txt").innerHTML = "";
-
                 return;
             }
             var xmlhttp = new XMLHttpRequest();
@@ -252,6 +242,8 @@ function secure($data){
             xmlhttp.open("GET", "email_select.php?q=" + str, true);
             xmlhttp.send();
         }
+
+        
     </script>
 </body>
 
