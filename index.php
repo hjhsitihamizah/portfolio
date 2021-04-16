@@ -1,3 +1,27 @@
+<?php
+require 'db_connection.php';
+
+$emailRow = array();
+$sql_e = "SELECT * FROM user_information ";
+$result = $con->query($sql_e);
+if (mysqli_num_rows($result) > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $emailRow = $row;
+    }
+}
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $selectedEmail = secure($_POST['selectUser']);
+    
+}
+function secure($data){
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+
+?>
 <html lang="en">
 
 <head>
@@ -19,6 +43,29 @@
         h6 {
             font-family: "Roboto";
         }
+
+        /* Style the header */
+        .header {
+            background-color: #f1f1f1;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .btn {
+            border-radius: 5px;
+            text-align: center;
+            background-color: teal;
+            color: lightgrey;
+            border: none;
+        }
+
+        .a-no-underline {
+            text-decoration: none;
+        }
+
+        .class-form{
+            width:100%;
+        }
     </style>
     <title>Portfolio</title>
 </head>
@@ -29,6 +76,17 @@
 
         <!-- the grid -->
         <div class="w3-row-padding">
+            <div class="header">
+                <?php var_dump($emailRow);
+                echo "<br>hi<br>";
+                echo json_encode($emailRow["email"]);
+                ?>
+                <!-- <h1 class="w3-text-grey w3-padding-16">Home</h1> -->
+                <a href="index.php" class="a-no-underline">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-home fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Home</h2>
+                </a>
+                <!-- <p>Resize the browser window to see the responsive effect.</p> -->
+            </div>
             <!-- left column -->
             <div class="w3-third">
                 <div class="w3-white w3-text-grey w3-card-4">
@@ -102,11 +160,6 @@
                         <p style="text-align: justify">She provided sales service to the customer by suggesting the bestselling books cater to the customer's needs. She also handling the shop POS system and managing the stock inventory.</p>
                         <br>
                     </div>
-                    <!-- <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Designer</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2021</h6>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p><br>
-                    </div> -->
                 </div>
 
                 <div class="w3-container w3-card w3-white">
@@ -134,7 +187,34 @@
                     <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-plus-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Create Your Own Portfolio</h2>
                     <div class="w3-container">
                         <!-- <h5 class="opacity"><b>kkkk</b></h5> -->
-                        <a href="media_1.php"><h6 class="w3-text-teal"><i class="fa fa-link fa-fw w3-margin-right"></i>Create portfolio</h6></a>                     
+                        <a href="media_1.php">
+                            <h6 class="w3-text-teal"><i class="fa fa-link fa-fw w3-margin-right"></i>Create portfolio</h6>
+                        </a>
+                        <form action="">
+                            <select name="selectUser" onchange="email_select(this.value)" id="selectUser">
+                                <?php
+                                echo "<option value='' selected>Select the user</option>";
+                                $selected = json_encode($emailRow['email']);
+                                
+                                foreach ($emailRow as $tre) {
+                                    $user = $tre['username'];
+                                    $email = $tre['email'];
+                                    $id = $tre["id"];
+                                    echo "<option value='$id'>$tre</option>";
+                                    // echo "<option value='$email'>$email</option>";
+                                }
+
+                                ?>
+
+                            </select>
+                            <!-- <button class="btn" type="submit">Submit</button> -->
+                            <?php 
+                            foreach($emailRow as $tre){
+                                // echo $tre[2] . "<br>";
+                            }
+                            ?>
+                        </form>
+                        <h6 class="w3-text-teal" id="txt">Text Appear Here</h6>
                         <br>
                     </div>
                 </div>
@@ -154,7 +234,25 @@
             </footer>
         </div>
     </div>
+    <script>
+        //select drone model
+        function drone_select(str) {
+            var droneModel = document.getElementById("droneSelect").innerHTML;
+            if (str == "") {
+                document.getElementById("txt").innerHTML = "";
 
+                return;
+            }
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("txt").innerHTML = this.responseText;
+                }
+            }
+            xmlhttp.open("GET", "email_select.php?q=" + str, true);
+            xmlhttp.send();
+        }
+    </script>
 </body>
 
 </html>

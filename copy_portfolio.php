@@ -1,4 +1,6 @@
-<?php 
+<?php
+require "db_connection.php";
+
 $name = $_POST['name'];
 $work = $_POST['work'];
 $address = $_POST['address'];
@@ -11,6 +13,28 @@ $experience_2 = $_POST['experience_2'];
 $position_1 = $_POST['position_1'];
 $position_2 = $_POST['position_2'];
 
+$sql_e = "SELECT * FROM user_information WHERE email='$email'";
+$result = $con->query($sql_e);
+if(mysqli_num_rows($result)>0){
+    $msg = "Email has already registered, try to use another email instead ";
+}
+else{
+    $sql2 = "INSERT INTO user_information (username, work, h_address, email, date_from, date_to, work2_date, exp1, exp2, position1, position2) 
+        VALUES ('$name','$work','$address','$email','$work1_from','$work1_to','$work2_date','$experience_1','$experience_2','$position_1','$position_2')";
+    
+
+        if($con->query($sql2))
+        {
+            $msg =  "new record created successfully";
+            exit;
+        
+        }
+        else
+        {
+            $msg = "error: " . $sql2 . "<br>" . $con->error . "<br";
+        }
+        $con->close();
+}
 
 
 ?>
@@ -36,6 +60,17 @@ $position_2 = $_POST['position_2'];
         h6 {
             font-family: 'Source Sans Pro', sans-serif;
         }
+
+        /* Style the header */
+        .header {
+            background-color: #f1f1f1;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .a-no-underline {
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -44,50 +79,67 @@ $position_2 = $_POST['position_2'];
     <div class="w3-content w3-margin-top" style="max-width: 1400px;">
         <!-- the grid -->
         <div class="w3-row-padding">
+            <div class="header">
+                <!-- <h1 class="w3-text-grey w3-padding-16">Home</h1> -->
+                <a href="index.php" class="a-no-underline">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-home fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Home</h2>
+                </a>
+                <!-- <p>Resize the browser window to see the responsive effect.</p> -->
+            </div>
             <!-- left column -->
             <div class="w3-third">
                 <div class="w3-white w3-text-grey w3-card-4">
                     <div class="w3-display-container">
                         <img src="res/polar.jpg" alt="polar" style="width: 100%;">
                         <div class="w3-display-bottomleft w3-container w3-text-black">
-                            <h2>Mich</h2>
+                            <h2><?php echo "$name"; ?></h2>
                         </div>
                     </div>
                     <div class="w3-container">
-                        <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Back-End Developer</p>
-                        <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Brunei</p>
-                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>mizah@innovaero.co</p>
+                        <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo "$work"; ?></p>
+                        <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo "$address"; ?></p>
+                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><?php echo "$email"; ?></p>
                         <!-- <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>7001000</p> -->
                         <hr>
                     </div>
                 </div><br>
-                <!-- end left column -->
+            <!-- end left column -->
             </div>
 
             <!-- right column -->
             <div class="w3-twothird">
                 <div class="w3-container w3-card w3-white w3-margin-bottom">
-                <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
                     <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Back End Developer</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Feb 2021 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
-                        <p style="text-align: justify">She provides the logic for server-side web application and implement the security and data protection. Design and implement the data storage solutions to the appropriate systems or web application.</p>
+                        <h5 class="w3-opacity"><b><?php echo "$position_1";?></b></h5>
+                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><?php echo "$work1_from -";?> <span class="w3-tag w3-teal w3-round"><?php echo "$work1_to";?></span></h6>
+                        <p style="text-align: justify"><?php echo "$experience_1";?></p>
                         <hr>
                     </div>
                     <div class="w3-container">
-                        <h5 class="w3-opacity"><b>Bookshop Assistant</b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Oct 2020 - Jan 2021</h6>
-                        <p style="text-align: justify">She provided sales service to the customer by suggesting the bestselling books cater to the customer's needs. She also handling the shop POS system and managing the stock inventory.</p>
+                        <h5 class="w3-opacity"><b><?php echo "$position_2";?></b></h5>
+                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><?php echo "$work2_date";?></h6>
+                        <p style="text-align: justify"><?php echo "$experience_2";?></p>
                         <br>
                     </div>
                 </div>
 
-                
+                <div class="w3-container w3-card w3-white">
+                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-plus-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Database</h2>
+                    <div class="w3-container">
+                        <h5 class="opacity"><b><?php echo $msg; ?></b></h5>                        
+                        <br>
+                    </div>
+                </div>
+
+            <!-- end right column   -->
             </div>
 
+            <footer class="w3-container w3-teal w3-center w3-margin-top">
+                <p>Powered by <?php echo "$name";?></a>
+                </p>
+            </footer>
         </div>
-
-
     </div>
 
 
