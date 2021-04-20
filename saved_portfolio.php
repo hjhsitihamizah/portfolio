@@ -14,19 +14,26 @@ $result = $con->query($sql_e);
 if($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $name = $row['username'];
-        $work = $row['work'];
         $address = $row['h_address'];
         $email = $row['email'];
-        $work1_from = $row['date_from'];
-        $work1_to = $row['date_to'];
-        $work2_date = $row['work2_date'];
+    }
+}
+$sql2 = "SELECT * FROM portfolio WHERE username='$name'";
+$result2 = $con->query($sql2);
+if($result2->num_rows > 0) {
+    while ($row = $result2->fetch_assoc()) {
+        $name = $row['username'];
+        $work = $row['work'];
+        $work1_from = $row['work1_date_from'];
+        $work1_to = $row['work2_date_to'];
+        $work2_date_from = $row['work2_date_from'];
+        $work2_date_to = $row['work2_date_to'];
         $experience_1 = $row['exp1'];
         $experience_2 = $row['exp2'];
         $position_1 = $row['position1'];
         $position_2 = $row['position2'];
     }
 }
-
 
 ?>
 <html lang="en">
@@ -109,7 +116,7 @@ if($result->num_rows > 0) {
                     </div>
                     <div class="w3-container">
                         <h5 class="w3-opacity"><b><?php echo "$position_2";?></b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><?php echo "$work2_date";?></h6>
+                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><?php echo "$work2_date_from - $work2_date_to";?></h6>
                         <p style="text-align: justify"><?php echo "$experience_2";?></p>
                         <br>
                     </div>

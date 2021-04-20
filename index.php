@@ -94,8 +94,8 @@ function secure($data){
                     </div>
                     <div class="w3-container">
                         <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Back-End Developer</p>
-                        <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Brunei</p>
-                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>mizah@innovaero.co</p>
+                        <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>@workplace</p>
+                        <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>portfolio@test.co</p>
                         <!-- <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>7001000</p> -->
                         <hr>
 
@@ -189,7 +189,7 @@ function secure($data){
                         <form action="saved_portfolio.php" method="post">
                             <select name="selectUser" onclick="selectFnc(this.value)" id="selectUser">
                                 <?php
-                                echo "<option value='' selected>Select the user</option>";
+                                echo "<option value='' selected>Select the page</option>";
                                 $selected = json_encode($emailRow['email']);
                                 
                                 foreach ($emailRow as $tre) {
@@ -221,7 +221,7 @@ function secure($data){
                 <i class="fa fa-pinterest-p w3-hover-opacity"></i>
                 <i class="fa fa-twitter w3-hover-opacity"></i>
                 <i class="fa fa-linkedin w3-hover-opacity"></i>
-                <p>Powered by Mich</a>
+                <p>This Page is An Example</p>
                 </p>
             </footer>
         </div>

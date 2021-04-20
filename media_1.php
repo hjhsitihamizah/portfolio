@@ -114,13 +114,13 @@ function secure($data){
                         <h2 class="w3-text-black w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
                         <div class="w3-container">
                             <h6 class="w3-opacity"><input type="text" name="position_1" placeholder="Latest Work Position"></h6>
-                            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><input type="text" name="work1_from" placeholder="dd/mm/yyyy"> - <input type="text" name="work1_to" placeholder="To"></h6>
+                            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><input type="text" name="work1_date_from" placeholder="dd/mm/yyyy"> - <input type="text" name="work1_date_to" placeholder="To"></h6>
                             <p style="text-align: justify"><textarea name="experience_1" id="" cols="55" rows="5" placeholder="Work Description"></textarea></p>
                             <hr>
                         </div>
                         <div class="w3-container">
                             <h6 class="w3-opacity"><input type="text" name="position_2" placeholder="Second Latest Work Position"></h6>
-                            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><input type="text" name="work2_date" placeholder="dd/mm/yyyy - dd/mm/yyyy"></h6>
+                            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><input type="text" name="work2_date_from" placeholder="dd/mm/yyyy"> - <input type="text" name="work2_date_to" placeholder="dd/mm/yyyy"></h6>
                             <p style="text-align: justify"><textarea name="experience_2" id="" cols="55" rows="5" placeholder="Work Description"></textarea></p>
                             <br>
                         </div>

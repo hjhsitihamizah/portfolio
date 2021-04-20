@@ -24,8 +24,6 @@ function secure($data){
     return $data;
 }
 
-
-
 $sql_e = "SELECT * FROM user_information WHERE email='$email'";
 $result = $con->query($sql_e);
 if(mysqli_num_rows($result)>0){
@@ -39,7 +37,7 @@ else{
         if($con->query($sql2))
         {
             $msg =  "new record created successfully";
-            header("Location: copy_portfolio.php");
+            // header("Location: copy_portfolio.php");
             exit;
         
         }
