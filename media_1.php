@@ -1,4 +1,6 @@
 <?php
+include 'header.php';
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $name = secure($_POST['name']);
     $work = secure($_POST['work']);
@@ -19,6 +21,16 @@ function secure($data){
     return $data;
 }
 
+$sql = "SELECT * FROM user_information WHERE sessionID ='$sessionID'";
+    $result = $con->query($sql);
+    if ($result->num_rows > 0) {
+        // OUTPUT FETCH FROM user_information table
+        while ($row = $result->fetch_assoc()) {
+            $user_email = $row['email'];
+            $username = $row['username'];
+            $home_address = $row['h_address'];
+        }
+    }
 
 ?>
 <html lang="en">
@@ -60,6 +72,12 @@ function secure($data){
        #userForm{
         margin-right: 0em;
        }
+       .logout{
+            top: 5%;
+            right: 5%;
+            color: #008080;
+            position: absolute;
+        }
        
     </style>
     <script>
@@ -83,6 +101,9 @@ function secure($data){
                 <a href="index.php" class="a-no-underline">
                     <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-home fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Home</h2>
                 </a>
+                <a href="logout.php" class="a-no-underline">
+                    <h6 class="logout">Logout</h6>
+                </a>
                 <!-- <p>Resize the browser window to see the responsive effect.</p> -->
             </div>
             <form id="userForm" action="insert_data.php" method="POST" >
@@ -93,13 +114,14 @@ function secure($data){
                         <div class="w3-display-container">
                             <img src="res/polar.jpg" alt="Avatar" style="width: 100%">
                             <div class="w3-display-bottomleft w3-container w3-text-black">
-                                <h2><input type="text" class="w3-twothird" name="name" placeholder="Name"></h2>
+                                <h2><input type="text" class="w3-twothird" name="name" placeholder="<?php echo $username; ?>" value="<?php echo $username; ?>"></h2>
+                                
                             </div>
                         </div>
                         <div class="w3-container">
                             <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i><input type="text" name="work" placeholder="Work Place"></p>
-                            <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><input type="text" name="address" placeholder="Address"></p>
-                            <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><input type="email" name="email" placeholder="Email"></p>
+                            <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><input type="text" name="address" placeholder="<?php echo $home_address; ?>" value="<?php echo $home_address; ?>"></p>
+                            <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><input type="email" name="email" placeholder="<?php echo $user_email;?>" value="<?php echo $user_email; ?>"></p>
 
                             <br>
                         </div>

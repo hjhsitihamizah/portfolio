@@ -7,8 +7,8 @@ $sql = "SELECT * FROM portfolio WHERE id ='$q'";
     if ($result->num_rows > 0) {
         // OUTPUT FETCH FROM user_information table
         while ($row = $result->fetch_assoc()) {
-            $emailSelect = $row['email'];
-            echo $emailSelect;
+            $emailSelect = $row['id'];
+            // echo $emailSelect;
         }
     }
 

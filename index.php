@@ -1,16 +1,25 @@
 <?php
-session_start();
-require 'db_connection.php';
-$sessionID = $_SESSION['sessionID'];
+include 'header.php';
 
 if($_SESSION == "" || $_SESSION == NULL){
     header("Location: login.php");
 }
 $emailRow = array();
-$sql_e = "SELECT * FROM portfolio";
-$result = $con->query($sql_e);
+
+$sql = "SELECT * FROM user_information WHERE sessionID ='$sessionID'";
+$result = $con->query($sql);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        $name = $row['username'];
+    }
+}else{
+    $name='';
+}
+
+$sql_e = "SELECT * FROM portfolio WHERE username ='$name'";
+$result2 = $con->query($sql_e);
+if ($result2->num_rows > 0) {
+    while ($row = $result2->fetch_assoc()) {
         $emailRow[] = $row;
     }
 }
@@ -209,7 +218,7 @@ function secure($data){
                                     $user = $tre['username'];                                    
                                     $id = $tre["id"];
                                     
-                                    echo "<option value='$id'>$user</option>";
+                                    echo "<option value='$id'>$id</option>";
                                     // echo "<option value='$email'>$email</option>";
                                 }
 
@@ -219,7 +228,7 @@ function secure($data){
                             <button class="btn" type="submit">Submit</button>
                             
                         </form>
-                        <div id="txt" class="w3-text-teal" >Text Appear Here</div>
+                        <!-- <div id="txt" class="w3-text-teal" >Text Appear Here</div> -->
                         <br>
                     </div>
                 </div>
@@ -244,13 +253,13 @@ function secure($data){
         function selectFnc(str) {
             
             if (str == "") {
-                document.getElementById("txt").innerHTML = "";
+                // document.getElementById("txt").innerHTML = "";
                 return;
             }
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("txt").innerHTML = this.responseText;
+                    // document.getElementById("txt").innerHTML = this.responseText;
                 }
             }
             xmlhttp.open("GET", "email_select.php?q=" + str, true);

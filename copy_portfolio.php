@@ -1,25 +1,38 @@
 <?php 
-session_start();
-require "db_connection.php";
 
-$email = $_SESSION["email"];
+include 'header.php';
 
-$sql_e = "SELECT * FROM user_information WHERE email='$email'";
+$sql_e = "SELECT * FROM user_information WHERE sessionID='$sessionID'";
 $result = $con->query($sql_e);
 if($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $name = $row['username'];
-        $work = $row['work'];
         $address = $row['h_address'];
-        // $email = $row['email'];
-        $work1_from = $row['date_from'];
-        $work1_to = $row['date_to'];
-        $work2_date = $row['work2_date'];
+        $email = $row['email'];
+    }
+}
+
+$sql = "SELECT * FROM portfolio WHERE username='$name'";
+$result2 = $con->query($sql);
+if($result2->num_rows > 0) {
+    while ($row = $result2->fetch_assoc()) {
+        $work = $row['work'];
+        $work1_from = $row['work1_date_from'];
+        $work1_to = $row['work1_date_to'];
+        $work2_date_from = $row['work2_date_from'];
+        $work2_date_to = $row['work2_date_to'];
         $experience_1 = $row['exp1'];
         $experience_2 = $row['exp2'];
         $position_1 = $row['position1'];
         $position_2 = $row['position2'];
     }
+
+    $date1 = strtotime($work1_from);
+    $work1_from = date("d-m-Y", $date1);
+    $date3 = strtotime($work2_date_from);
+    $work2_date_from = date("d-m-Y", $date3);
+    $date4 = strtotime($work2_date_to);
+    $work2_date_to = date("d-m-Y", $date4);
 }
 // session_destroy();
 ?>
@@ -56,6 +69,12 @@ if($result->num_rows > 0) {
         .a-no-underline {
             text-decoration: none;
         }
+        .logout{
+            top: 5%;
+            right: 5%;
+            color: #008080;
+            position: absolute;
+        }
     </style>
 </head>
 
@@ -68,6 +87,9 @@ if($result->num_rows > 0) {
                 <!-- <h1 class="w3-text-grey w3-padding-16">Home</h1> -->
                 <a href="index.php" class="a-no-underline">
                     <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-home fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Home</h2>
+                </a>
+                <a href="logout.php" class="a-no-underline">
+                    <h6 class="logout">Logout</h6>
                 </a>
                 <!-- <p>Resize the browser window to see the responsive effect.</p> -->
             </div>
@@ -103,16 +125,8 @@ if($result->num_rows > 0) {
                     </div>
                     <div class="w3-container">
                         <h5 class="w3-opacity"><b><?php echo "$position_2";?></b></h5>
-                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><?php echo "$work2_date";?></h6>
+                        <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i><?php echo "$work2_date_from";?> - <?php echo "$work2_date_to";?></h6>
                         <p style="text-align: justify"><?php echo "$experience_2";?></p>
-                        <br>
-                    </div>
-                </div>
-
-                <div class="w3-container w3-card w3-white">
-                    <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-plus-square-o fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Database</h2>
-                    <div class="w3-container">
-                        
                         <br>
                     </div>
                 </div>

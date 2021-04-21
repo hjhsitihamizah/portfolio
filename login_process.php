@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require "db_connection.php";
 //generate random strings for sessionID
 $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
