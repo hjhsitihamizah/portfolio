@@ -1,4 +1,6 @@
 <?php
+session_start();
+$sessionId = $_SESSION['sessionID'];
 require "db_connection.php";
 
 $id = secure($_POST['selectUser']);
@@ -9,7 +11,7 @@ function secure($data){
     return $data;
 }
 
-$sql_e = "SELECT * FROM user_information WHERE id='$id'";
+$sql_e = "SELECT * FROM user_information WHERE sessionID ='$sessionID'";
 $result = $con->query($sql_e);
 if($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -22,7 +24,6 @@ $sql2 = "SELECT * FROM portfolio WHERE username='$name'";
 $result2 = $con->query($sql2);
 if($result2->num_rows > 0) {
     while ($row = $result2->fetch_assoc()) {
-        $name = $row['username'];
         $work = $row['work'];
         $work1_from = $row['work1_date_from'];
         $work1_to = $row['work2_date_to'];

@@ -1,9 +1,13 @@
 <?php
-
+session_start();
 require 'db_connection.php';
+$sessionID = $_SESSION['sessionID'];
 
+if($_SESSION == "" || $_SESSION == NULL){
+    header("Location: login.php");
+}
 $emailRow = array();
-$sql_e = "SELECT * FROM user_information";
+$sql_e = "SELECT * FROM portfolio";
 $result = $con->query($sql_e);
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -65,6 +69,12 @@ function secure($data){
         .a-no-underline {
             text-decoration: none;
         }
+        .logout{
+            top: 5%;
+            right: 5%;
+            color: #008080;
+            position: absolute;
+        }
 
     </style>
     <title>Portfolio</title>
@@ -80,6 +90,9 @@ function secure($data){
                 <!-- <h1 class="w3-text-grey w3-padding-16">Home</h1> -->
                 <a href="index.php" class="a-no-underline">
                     <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-home fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Home</h2>
+                </a>
+                <a href="logout.php" class="a-no-underline">
+                    <h6 class="logout">Logout</h6>
                 </a>
                 <!-- <p>Resize the browser window to see the responsive effect.</p> -->
             </div>

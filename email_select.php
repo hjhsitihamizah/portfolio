@@ -2,7 +2,7 @@
 require 'db_connection.php';
 $q = $_GET['q'];
 
-$sql = "SELECT * FROM user_information WHERE id ='$q'";
+$sql = "SELECT * FROM portfolio WHERE id ='$q'";
     $result = $con->query($sql);
     if ($result->num_rows > 0) {
         // OUTPUT FETCH FROM user_information table

@@ -27,32 +27,23 @@ date_default_timezone_set('Asia/Brunei');
 $current_date = date('Y-m-d H:i:s');
 echo $current_date;
 
-// //check email
-// $sql = "SELECT * FROM user_information WHERE email = '$email'";
-// $result = $con->query($sql);
-// //if email exist
-// if(mysqli_num_rows($result)>0) {
-//     echo "Email has been taken, use alternative email";
-    
-// //if email not exist
-// }else{
-    echo "email is not exist, insert data to db can be proceed";
-    $password = password_hash($password,PASSWORD_DEFAULT);
-    $insert = "INSERT INTO user_information (username, h_address, email, pass, date_register) 
-    VALUES ('$username', '$address', '$email','$password', '$current_date')";
+echo "email is not exist, insert data to db can be proceed";
+$password = password_hash($password,PASSWORD_DEFAULT);
+$insert = "INSERT INTO user_information (username, h_address, email, pass, date_register) 
+VALUES ('$username', '$address', '$email','$password', '$current_date')";
 
-    if($con->query($insert))
-    {
-        echo "new record created successfully";
-        header("Location: index.php");
-        exit;
-    }
-    else
-    { 
-        echo "error: " . $insert . "<br>" . $con->error ; 
-    }
-
-    $con->close();
+if($con->query($insert))
+{
+    echo "new record created successfully";
+    header("Location: index.php");
+    exit;
 }
-// }
+else
+{ 
+    echo "error: " . $insert . "<br>" . $con->error ; 
+}
+
+$con->close();
+}
+
 ?>
